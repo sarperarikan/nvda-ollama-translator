@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NVDA Ollama Translator Documentation</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            border-bottom: none;
+            color: #2980b9;
+        }
+
+        .container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        code {
+            background-color: #eee;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: Consolas, monospace;
+            color: #c7254e;
+        }
+
+        pre {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .note {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .shortcut {
+            font-weight: bold;
+            color: #27ae60;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>NVDA Ollama Translator</h1>
+        <p>This add-on provides fast and privacy-focused translation for the NVDA screen reader using locally running
+            Ollama AI models.</p>
+
+        <div class="note">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#installation">Installation & Requirements</a></li>
+                <li><a href="#usage">Usage</a></li>
+                <li><a href="#settings">Settings</a></li>
+                <li><a href="#troubleshooting">Troubleshooting</a></li>
+                <li><a href="#developer">Developer Info</a></li>
+            </ul>
+        </div>
+
+        <h2 id="features">Features</h2>
+        <ul>
+            <li><strong>Local Translation:</strong> Works without an internet connection (once models are downloaded).
+            </li>
+            <li><strong>Dynamic Model Selection:</strong> Automatically detects Ollama models installed on your system.
+            </li>
+            <li><strong>Multi-language Support:</strong> Can translate between 20+ languages.</li>
+            <li><strong>Smart Selection:</strong> Automatically detects selected text or the focused object.</li>
+            <li><strong>Virtual Viewer:</strong> Speaks the translation and shows it in a reviewable window.</li>
+            <li><strong>Marker Translation:</strong> Translate text between a start and end marker.</li>
+        </ul>
+
+        <h2 id="installation">Installation & Requirements</h2>
+        <ol>
+            <li><strong>Install Ollama:</strong> Download and install Ollama from <a
+                    href="https://ollama.com">ollama.com</a>.</li>
+            <li><strong>Download a Model:</strong> Open Terminal or Command Prompt and pull a model (e.g.,
+                <code>ollama pull llama3</code> or <code>ollama pull gemma2</code>).</li>
+            <li><strong>Install the Add-on:</strong> Open the <code>ollamaTranslator.nvda-addon</code> file and follow
+                NVDA's installation instructions.</li>
+        </ol>
+
+        <h2 id="usage">Usage</h2>
+
+        <h3>1. Quick Translation</h3>
+        <p>While navigating text, follow these steps:</p>
+        <ul>
+            <li>Select text or simply focus on it.</li>
+            <li>Press <span class="shortcut">NVDA + Shift + T</span>.</li>
+            <li>The translation will be spoken by NVDA and a Virtual Viewer window will open.</li>
+        </ul>
+
+        <h3>2. Marker Translation (For Large Text)</h3>
+        <p>If selecting text is difficult or you want to select a specific chunk:</p>
+        <ul>
+            <li>Go to the <strong>start</strong> of the text you want to translate and press <span class="shortcut">NVDA
+                    + Shift + K</span>. (You will hear "Start marker set").</li>
+            <li>Go to the <strong>end</strong> of the text and press <span class="shortcut">NVDA + Shift + L</span>.
+            </li>
+            <li>The text between the two points will be automatically translated.</li>
+        </ul>
+
+        <h3>3. Menu Translation</h3>
+        <p>You can open the manual translation window by going to <strong>Tools > Ollama Translator...</strong> in the
+            NVDA menu. Here you can paste text and click "Translate".</p>
+
+        <h2 id="settings">Settings</h2>
+        <p>Go to <strong>Preferences > Settings...</strong> in the NVDA menu and select the <strong>Ollama
+                Translator</strong> category from the list on the left.</p>
+
+        <ul>
+            <li><strong>Ollama URL:</strong> Default is <code>http://localhost:11434/api/generate</code>. You usually
+                don't need to change this.</li>
+            <li><strong>Model:</strong> Select the model you want to use from the list of installed models.</li>
+            <li><strong>Source Language:</strong> You can leave it as "Auto" or select a specific language.</li>
+            <li><strong>Target Language:</strong> Select the language to translate to (e.g., English).</li>
+            <li><strong>Shortcuts:</strong> You can customize the Translate, Start Marker, and End Marker shortcuts
+                here.</li>
+        </ul>
+
+        <div class="note">
+            <strong>Note:</strong> Shortcut changes take effect immediately after clicking "OK"; no need to restart
+            NVDA.
+        </div>
+
+        <h2 id="troubleshooting">Troubleshooting</h2>
+        <ul>
+            <li><strong>"Translation failed" error:</strong> Make sure Ollama is running in the background. You can
+                check by going to <code>http://localhost:11434</code> in your browser.</li>
+            <li><strong>Model list is empty:</strong> You might not have any models installed in Ollama. Check with the
+                <code>ollama list</code> command.</li>
+        </ul>
+
+        <h2 id="developer">Developer Info</h2>
+        <p>This add-on is developed by <strong>Sarper Arıkan</strong>.</p>
+        <ul>
+            <li><strong>Email:</strong> <a href="mailto:sarperarikan@gmail.com">sarperarikan@gmail.com</a></li>
+            <li><strong>Website:</strong> <a href="https://sarperarikan.net">sarperarikan.net</a></li>
+        </ul>
+    </div>
+
+</body>
+
+</html>
